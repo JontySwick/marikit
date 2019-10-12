@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\News;
 use Exception;
 use yii\helpers\Json;
 use yii\helpers\VarDumper;
@@ -32,37 +33,55 @@ class ParserController extends Controller
         $previewText = '';
 
         $curl = new curl\Curl();
-        $response = $curl->get('https://www.rbc.ru/v10/ajax/get-news-feed/project/rbcnews/lastDate/' . $lastDate . '/limit/22');
+        $curl->setOption(CURLOPT_FOLLOWLOCATION, true);
+        $response = $curl->get('https://www.rbc.ru/v10/ajax/get-news-feed/project/rbcnews/lastDate/' . $lastDate . '/limit/16');
         $response = Json::decode($response, true);
 
-        foreach ($response['items'] as $arNews){
+        foreach ($response['items'] as $arNews) {
             $previewText .= htmlspecialchars($arNews['html']);
         }
 
         preg_match_all('/href=&quot;(.+)&quot;/', $previewText, $urlMatches, PREG_PATTERN_ORDER);
-        foreach ($urlMatches[1] as $url) {
+        $allNews = News::find()->select(['xml_id'])->indexBy(['xml_id'])->asArray()->all();
+        VarDumper::dump($urlMatches);
+        foreach ($urlMatches[1] as $index => $url) {
             $arUrl = parse_url($url);
+            if(strpos($arUrl['host'],'rbc.ru') === false){
+                continue; #Реклама
+            }
+
             $arPath = explode('/', $arUrl['path']);
             $hash = end($arPath);
-            if($hash){
-                $response = $curl->get('https://www.rbc.ru/v10/ajax/news/slide/' . $hash);
-                $response = Json::decode($response, true);
 
-                $news = htmlspecialchars($response['html']);
+            if ($hash && !isset($allNews[$hash])) {
+                $response = $curl->get($url);
+                $news = htmlspecialchars($response);
 
-                VarDumper::dump($url, 10, true);
-                VarDumper::dump($response['html'], 10, true);
-                preg_match_all('/(itemprop=&quot;headline&quot;&gt;(.+)&lt;\/span&gt;)|(&lt;p&gt;(.*)&lt;\/p&gt;)/', $news, $matches, PREG_PATTERN_ORDER);
-                VarDumper::dump($matches, 10, true);
+                $arNews = [];
+                $arPattens = [
+                    'name' => '(itemprop=&quot;headline&quot;&gt;(.+)&lt;\/span&gt;)',
+                    'img' => '(&lt;img src=&quot;(.+?)&quot; class=&quot;article__main-image__image)',
+                    'detail_text' => '(&lt;p&gt;(.*)&lt;\/p&gt;)',
+                ];
+                foreach ($arPattens as $fieldName => $patten) {
+                    preg_match_all($patten, $news, $newsMatches, PREG_PATTERN_ORDER);
+                    $arNews[$fieldName] = $newsMatches[1];
+                }
 
-                break;
+                $preparedText = implode('</p><p>', $arNews['detail_text']);
+                $previewText = '<p>' . (mb_strimwidth($preparedText, 0, 193, '...') ). '</p>'; #193 символа + 7 сиволов на <p></p>
+                $detailText = htmlspecialchars_decode('<p>' . $preparedText . '</p>');
+
+                $obNews = new News();
+                $obNews->name = current($arNews['name']);
+                $obNews->xml_id = $hash;
+                //$obNews->img = current($arNews['img']);
+                $obNews->preview_text = $previewText;
+                $obNews->detail_text = $detailText;
+                VarDumper::dump($obNews);
+                $obNews->save();
             }
         }
-
-        #https://www.rbc.ru/v10/ajax/news/slide/5da0de1f9a7947d805a90f4b?slide=8
-        #VarDumper::dump($response, 10, true);
-        #var_dump($response);
-        die();
         return '';
     }
 }
