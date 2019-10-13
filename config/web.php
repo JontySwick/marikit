@@ -15,6 +15,9 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'tEj3d1ig5XX-sftJk3eu6m9Dmis5hfSJ',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -43,14 +46,25 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+
+                '/' => 'site/index',
+                'products'  => 'site/index',
+                'products/add'  => 'site/index',
+                'products/<id:\d+>'  => 'site/index',
+                //...
+
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'product',
+                    'prefix' => 'api', //api будет доступен по url, начинающимся с /api/products
+                ],
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
