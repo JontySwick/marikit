@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\News;
+use app\components\PhpQueryRbcParser as Parser;
 use Exception;
 use yii\helpers\Json;
 use yii\helpers\VarDumper;
@@ -29,24 +30,13 @@ class ParserController extends Controller
      */
     public function actionParse()
     {
-        $lastDate = time();
-        $previewText = '';
-
-        $curl = new curl\Curl();
-        $curl->setOption(CURLOPT_FOLLOWLOCATION, true);
-        $response = $curl->get('https://www.rbc.ru/v10/ajax/get-news-feed/project/rbcnews/lastDate/' . $lastDate . '/limit/16');
-        $response = Json::decode($response, true);
-
-        foreach ($response['items'] as $arNews) {
-            $previewText .= htmlspecialchars($arNews['html']);
-        }
-
-        preg_match_all('/href=&quot;(.+)&quot;/', $previewText, $urlMatches, PREG_PATTERN_ORDER);
         $allNews = News::find()->select(['xml_id'])->indexBy(['xml_id'])->asArray()->all();
-        VarDumper::dump($urlMatches);
-        foreach ($urlMatches[1] as $index => $url) {
+
+        $newsUrls = Parser::getNewsUrl();
+
+        foreach ($newsUrls as $index => $url) {
             $arUrl = parse_url($url);
-            if(strpos($arUrl['host'],'rbc.ru') === false){
+            if (strpos($arUrl['host'], 'rbc.ru') === false) {
                 continue; #Реклама
             }
 
@@ -54,34 +44,23 @@ class ParserController extends Controller
             $hash = end($arPath);
 
             if ($hash && !isset($allNews[$hash])) {
-                $response = $curl->get($url);
-                $news = htmlspecialchars($response);
-
-                $arNews = [];
-                $arPattens = [
-                    'name' => '(itemprop=&quot;headline&quot;&gt;(.+)&lt;\/span&gt;)',
-                    'img' => '(&lt;img src=&quot;(.+?)&quot; class=&quot;article__main-image__image)',
-                    'detail_text' => '(&lt;p&gt;(.*)&lt;\/p&gt;)',
-                ];
-                foreach ($arPattens as $fieldName => $patten) {
-                    preg_match_all($patten, $news, $newsMatches, PREG_PATTERN_ORDER);
-                    $arNews[$fieldName] = $newsMatches[1];
-                }
-
-                $preparedText = implode('</p><p>', $arNews['detail_text']);
-                $previewText = '<p>' . (mb_strimwidth($preparedText, 0, 193, '...') ). '</p>'; #193 символа + 7 сиволов на <p></p>
-                $detailText = htmlspecialchars_decode('<p>' . $preparedText . '</p>');
+                $newsInfo = Parser::parseOneNews($url);
 
                 $obNews = new News();
-                $obNews->name = current($arNews['name']);
+                $obNews->name = $newsInfo['name'];
                 $obNews->xml_id = $hash;
-                //$obNews->img = current($arNews['img']);
-                $obNews->preview_text = $previewText;
-                $obNews->detail_text = $detailText;
-                VarDumper::dump($obNews);
-                $obNews->save();
+                $obNews->img = $newsInfo['img'];
+                $obNews->preview_text = $newsInfo['preview_text'];
+                $obNews->detail_text = $newsInfo['detail_text'];
+
+                $result = $obNews->save();
+
+                if($result){
+
+                }
             }
         }
+
         return '';
     }
 }
