@@ -1,6 +1,7 @@
 <template>
     <div>
-        <router-view></router-view>
+        <ProductsList></ProductsList>
+<!--        <BasketList></BasketList>-->
     </div>
 </template>
 
@@ -12,14 +13,5 @@
             return {
             }
         },
-
-        mounted: function () {
-            //console.log('App component mounted');
-        }
-
     }
 </script>
-
-<style>
-
-</style>
