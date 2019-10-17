@@ -4,12 +4,10 @@ import App from './components/App.vue';
 import ProductsList from './components/ProductsList.vue';
 import BasketList from './components/BasketList.vue';
 
-Vue.component('ProductsList', ProductsList);
-Vue.component('BasketList', BasketList);
-
 import axios from 'axios';
 
-axios.defaults.headers.common['Authorization'] = 'Bearer 100-token';
+Vue.component('ProductsList', ProductsList);
+Vue.component('BasketList', BasketList);
 
 new Vue({
     el: '#app',
