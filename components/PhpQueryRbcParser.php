@@ -7,12 +7,16 @@ use phpQuery;
 
 class PhpQueryRbcParser extends RbcParser
 {
-    function getNewsUrl()
+    function getNewsUrl($lastDate)
     {
-        $newsList = self::getNewsList();
+        if(!$lastDate){
+            $lastDate = time();
+        }
+        $newsList = self::getNewsList($lastDate);
         $arNewsUrls = [];
         foreach ($newsList['items'] as $arNews) {
-            $arNewsUrls[] = phpQuery::newDocument($arNews['html'])->find('a')->attr('href');
+            $arNewsUrls['url'][] = phpQuery::newDocument($arNews['html'])->find('a')->attr('href');
+            $arNewsUrls['last_news_date'] = $arNews['publish_date_t'];
         }
 
         return $arNewsUrls;

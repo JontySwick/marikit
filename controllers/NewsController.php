@@ -39,7 +39,7 @@ class NewsController extends Controller
             'query' => News::find(),
         ]);
 
-        return $this->render('list', [
+        return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
