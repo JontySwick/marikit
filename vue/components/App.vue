@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <ProductsList></ProductsList>
-<!--        <BasketList></BasketList>-->
-    </div>
+  <div id="app">
+    <h1>JS Part</h1>
+    <ProductList/>
+    <hr>
+    <ShoppingCart/>
+  </div>
 </template>
 
 <script>
+import ProductList from './ProductList.vue'
+import ShoppingCart from './ShoppingCart.vue'
 
-    export default {
-
-        data () {
-            return {
-            }
-        },
-    }
+export default {
+  components: { ProductList, ShoppingCart }
+}
 </script>

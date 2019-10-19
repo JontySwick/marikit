@@ -1,15 +1,12 @@
-import Vue from 'vue';
+import Vue from 'vue'
+import App from './components/App.vue'
+import store from './store'
+import { currency } from './currency'
 
-import App from './components/App.vue';
-import ProductsList from './components/ProductsList.vue';
-import BasketList from './components/BasketList.vue';
-
-import axios from 'axios';
-
-Vue.component('ProductsList', ProductsList);
-Vue.component('BasketList', BasketList);
+Vue.filter('currency', currency)
 
 new Vue({
-    el: '#app',
-    render: h => h(App)
+  el: '#app',
+  store,
+  render: h => h(App)
 })
