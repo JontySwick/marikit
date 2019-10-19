@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,8 +70,8 @@
 "use strict";
 
 
-var bind = __webpack_require__(8);
-var isBuffer = __webpack_require__(36);
+var bind = __webpack_require__(7);
+var isBuffer = __webpack_require__(37);
 
 /*global toString:true*/
 
@@ -1542,7 +1542,7 @@ var index_esm = {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(38);
+var normalizeHeaderName = __webpack_require__(39);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1558,10 +1558,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(9);
+    adapter = __webpack_require__(8);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(9);
+    adapter = __webpack_require__(8);
   }
   return adapter;
 }
@@ -1645,7 +1645,7 @@ module.exports = defaults;
 if (false) {
   module.exports = require('./vue.common.prod.js')
 } else {
-  module.exports = __webpack_require__(15)
+  module.exports = __webpack_require__(14)
 }
 
 
@@ -1841,57 +1841,6 @@ process.umask = function() { return 0; };
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-
-
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-}
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-    getProducts: function getProducts(callback) {
-        var _this = this;
-
-        var products = {};
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("/names.json").then(function (response) {
-            products = response.data;
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("/data.json").then(function (response) {
-                var currencyValue = getRandomIntInclusive(20, 80);
-                console.log(currencyValue);
-                _this.offers = response.data.Value.Goods;
-                _this.offers.forEach(function (offer) {
-                    var categoryId = offer.G;
-                    var productId = offer.T;
-                    var currentCategory = products[categoryId];
-                    var currentProduct = currentCategory.B[productId];
-                    if (currentProduct) {
-                        currentCategory.existsAvailableGoods = true;
-                        currentProduct.stockCount = offer.P;
-                        currentProduct.price = offer.C * currencyValue;
-                    }
-                });
-
-                callback(products);
-                setTimeout(function () {
-                    _this.getProducts(callback);
-                }, 15000);
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }).catch(function (error) {
-            return console.log(error);
-        });
-    }
-});
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1909,18 +1858,18 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(39);
-var buildURL = __webpack_require__(41);
-var parseHeaders = __webpack_require__(42);
-var isURLSameOrigin = __webpack_require__(43);
-var createError = __webpack_require__(10);
+var settle = __webpack_require__(40);
+var buildURL = __webpack_require__(42);
+var parseHeaders = __webpack_require__(43);
+var isURLSameOrigin = __webpack_require__(44);
+var createError = __webpack_require__(9);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -2000,7 +1949,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(44);
+      var cookies = __webpack_require__(45);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -2078,13 +2027,13 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(40);
+var enhanceError = __webpack_require__(41);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -2103,7 +2052,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2115,7 +2064,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2141,29 +2090,29 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(14);
+module.exports = __webpack_require__(13);
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_App_vue__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_App_vue__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_App_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__currency__ = __webpack_require__(53);
 
 
 
 
-
+//Добавляем наш фильтр
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.filter('currency', __WEBPACK_IMPORTED_MODULE_3__currency__["a" /* currency */]);
 
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -2175,7 +2124,7 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 });
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14118,10 +14067,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(16).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(15).setImmediate))
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -14177,7 +14126,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(17);
+__webpack_require__(16);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -14191,7 +14140,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -14384,15 +14333,15 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(6)))
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(19)
+var __vue_script__ = __webpack_require__(18)
 /* template */
-var __vue_template__ = __webpack_require__(31)
+var __vue_template__ = __webpack_require__(30)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14431,14 +14380,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ProductList_vue__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ProductList_vue__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ProductList_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ProductList_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ShoppingCart_vue__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ShoppingCart_vue__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ShoppingCart_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ShoppingCart_vue__);
 //
 //
@@ -14458,19 +14407,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(21)
+  __webpack_require__(20)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(26)
+var __vue_script__ = __webpack_require__(25)
 /* template */
-var __vue_template__ = __webpack_require__(27)
+var __vue_template__ = __webpack_require__(26)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14509,17 +14458,17 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(22);
+var content = __webpack_require__(21);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(24)("0bbb2bb2", content, false, {});
+var update = __webpack_require__(23)("0bbb2bb2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -14535,10 +14484,10 @@ if(false) {
 }
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(23)(false);
+exports = module.exports = __webpack_require__(22)(false);
 // imports
 
 
@@ -14549,7 +14498,7 @@ exports.push([module.i, "\n.products {\n    border: 1px solid grey;\n    border-
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports) {
 
 /*
@@ -14631,7 +14580,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -14650,7 +14599,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(25)
+var listToStyles = __webpack_require__(24)
 
 /*
 type StyleObject = {
@@ -14859,7 +14808,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports) {
 
 /**
@@ -14892,12 +14841,13 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(3);
+//
 //
 //
 //
@@ -14931,13 +14881,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     }),
     methods: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('cart', ['addProductToCart']),
+    watch: {
+        //Следим за изменениями нашего списка
+        //при изменениях сравниваем цены товаров и записываем разницу в priceDiff
+        products: function products(newValue, oldValue) {
+            Object.keys(newValue).forEach(function (categoryId) {
+                if (!oldValue[categoryId]) {
+                    return;
+                }
+                Object.keys(newValue[categoryId]['B']).forEach(function (productId) {
+                    var newPrice = newValue[categoryId]['B'][productId]['price'];
+                    var oldPrice = oldValue[categoryId]['B'][productId]['price'];
+                    newValue[categoryId]['B'][productId]['priceDiff'] = newPrice - oldPrice;
+                });
+            });
+        },
+        deep: true,
+        immediate: false
+    },
     created: function created() {
+        //При создание компонента вызываем из модуля функцию получения товаров
         this.$store.dispatch('products/getAllProducts');
     }
 });
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15027,15 +14996,15 @@ if (false) {
 }
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(29)
+var __vue_script__ = __webpack_require__(28)
 /* template */
-var __vue_template__ = __webpack_require__(30)
+var __vue_template__ = __webpack_require__(29)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -15074,7 +15043,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15103,18 +15072,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])({
-    checkoutStatus: function checkoutStatus(state) {
-      return state.cart.checkoutStatus;
-    }
-  }), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('cart', {
-    products: 'cartProducts',
-    total: 'cartTotalPrice'
-  }))
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('cart', {
+        products: 'cartProducts',
+        total: 'cartTotalPrice'
+    })),
+    //Получаем экшины из модуля корзины
+    methods: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('cart', ['updateQuantity', 'removeProductFromCart'])
 });
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15122,7 +15089,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cart" }, [
-    _c("h2", [_vm._v("Your Cart")]),
+    _c("h2", [_vm._v("Корзина")]),
     _vm._v(" "),
     _c(
       "p",
@@ -15136,7 +15103,7 @@ var render = function() {
           }
         ]
       },
-      [_c("i", [_vm._v("Please add some products to cart.")])]
+      [_c("i", [_vm._v("Корзина пуста")])]
     ),
     _vm._v(" "),
     _c(
@@ -15144,50 +15111,59 @@ var render = function() {
       _vm._l(_vm.products, function(product) {
         return _c("li", { key: product.id }, [
           _vm._v(
-            "\n      " +
+            "\n            " +
               _vm._s(product.title) +
               " - " +
               _vm._s(_vm._f("currency")(product.price)) +
-              " x " +
-              _vm._s(product.quantity) +
-              "\n    "
+              " x "
+          ),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: product.quantity,
+                expression: "product.quantity"
+              }
+            ],
+            attrs: { type: "number" },
+            domProps: { value: product.quantity },
+            on: {
+              input: [
+                function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(product, "quantity", $event.target.value)
+                },
+                function($event) {
+                  return _vm.updateQuantity({
+                    id: product.id,
+                    quantity: product.quantity
+                  })
+                }
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.removeProductFromCart({ id: product.id })
+                }
+              }
+            },
+            [_vm._v("Удалить")]
           )
         ])
       }),
       0
     ),
     _vm._v(" "),
-    _c("p", [_vm._v("Total: " + _vm._s(_vm._f("currency")(_vm.total)))]),
-    _vm._v(" "),
-    _c("p", [
-      _c(
-        "button",
-        {
-          attrs: { disabled: !_vm.products.length },
-          on: {
-            click: function($event) {
-              return _vm.checkout(_vm.products)
-            }
-          }
-        },
-        [_vm._v("Checkout")]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "p",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.checkoutStatus,
-            expression: "checkoutStatus"
-          }
-        ]
-      },
-      [_vm._v("Checkout " + _vm._s(_vm.checkoutStatus) + ".")]
-    )
+    _c("p", [_vm._v("Итого: " + _vm._s(_vm._f("currency")(_vm.total)))])
   ])
 }
 var staticRenderFns = []
@@ -15201,7 +15177,7 @@ if (false) {
 }
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15234,15 +15210,15 @@ if (false) {
 }
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_cart__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_products__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_cart__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_products__ = __webpack_require__(33);
 
 
 
@@ -15258,18 +15234,12 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 }));
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api_shop__ = __webpack_require__(7);
-
-
-// initial state
-// shape: [{ id, quantity }]
 var state = {
-    items: [],
-    checkoutStatus: null
+    items: []
 
     // getters
 };var getters = {
@@ -15279,9 +15249,10 @@ var state = {
                 categoryId = _ref.categoryId,
                 quantity = _ref.quantity;
 
-            //const product = rootState.products.all.find(product => product.id === id)
+            //Перебирем список товаров в корзине, и добираем недостающую информацию
             var product = rootState.products.all[categoryId]['B'][id];
             return {
+                id: id,
                 title: product.N,
                 price: product.price,
                 quantity: quantity
@@ -15290,6 +15261,7 @@ var state = {
     },
 
     cartTotalPrice: function cartTotalPrice(state, getters) {
+        //счетаем сумму корзины
         return getters.cartProducts.reduce(function (total, product) {
             return total + product.price * product.quantity;
         }, 0);
@@ -15297,33 +15269,16 @@ var state = {
 
     // actions
 };var actions = {
-    checkout: function checkout(_ref2, products) {
-        /*const savedCartItems = [...state.items]
-        commit('setCheckoutStatus', null)
-        // empty cart
-        commit('setCartItems', { items: [] })
-        shop.buyProducts(
-          products,
-          () => commit('setCheckoutStatus', 'successful'),
-          () => {
-            commit('setCheckoutStatus', 'failed')
-            // rollback to the cart saved before sending the request
-            commit('setCartItems', { items: savedCartItems })
-          }
-        )*/
+    //ф-ия добавления товара в корзину
+    addProductToCart: function addProductToCart(_ref2, product) {
+        var state = _ref2.state,
+            commit = _ref2.commit;
 
-        var commit = _ref2.commit,
-            state = _ref2.state;
-    },
-    addProductToCart: function addProductToCart(_ref3, product) {
-        var state = _ref3.state,
-            commit = _ref3.commit;
-
-        commit('setCheckoutStatus', null);
-        console.log(product);
         var cartItem = state.items.find(function (item) {
             return item.id === product.id;
         });
+        //Проверям наличие товара в корзине
+        //если пытаются положить больше товара чем емть на остатках, не даем этого сделать :)
         if (!cartItem) {
             commit('pushProductToCart', product);
         } else {
@@ -15331,16 +15286,56 @@ var state = {
                 commit('incrementItemQuantity', cartItem);
             }
         }
-        // remove 1 item from stock
-        //commit('products/decrementProductInventory', product, { root: true });
+    },
+
+
+    //ф-ия для установки нового значенияим кол-ва в корзине
+    updateQuantity: function updateQuantity(_ref3, _ref4) {
+        var state = _ref3.state,
+            commit = _ref3.commit,
+            rootState = _ref3.rootState;
+        var id = _ref4.id,
+            quantity = _ref4.quantity;
+
+        quantity = parseInt(quantity);
+        if (!quantity) {
+            return;
+        }
+        var cartItem = state.items.find(function (item) {
+            return item.id === id;
+        });
+        var product = rootState.products.all[cartItem.categoryId]['B'][id];
+
+        //если вписали цыфру больще чем есть на остатках, обновляем на нее,
+        //а потом обратно. На сколько я понимаю, если убрать commit c 59 строки
+        //ломается реактивность DOMa т.к. значение в state не меняется.
+        //а как отсюда вызвать ту функцию которая в 99.99% случаев говорит о том что что-то не правильно, я так и не понял
+        if (product.stockCount < quantity) {
+            commit('setItemQuantity', { id: id, quantity: quantity });
+            quantity = product.stockCount;
+        }
+
+        commit('setItemQuantity', { id: id, quantity: quantity });
+    },
+
+
+    //action на удаление товара из корзины
+    removeProductFromCart: function removeProductFromCart(_ref5, _ref6) {
+        var state = _ref5.state,
+            commit = _ref5.commit,
+            rootState = _ref5.rootState;
+        var id = _ref6.id;
+
+        commit('deleteItem', { id: id });
     }
 };
 
 // mutations
 var mutations = {
-    pushProductToCart: function pushProductToCart(state, _ref4) {
-        var id = _ref4.id,
-            categoryId = _ref4.categoryId;
+    //Мутация для добавления записи в state корзины
+    pushProductToCart: function pushProductToCart(state, _ref7) {
+        var id = _ref7.id,
+            categoryId = _ref7.categoryId;
 
         state.items.push({
             id: id,
@@ -15348,21 +15343,42 @@ var mutations = {
             quantity: 1
         });
     },
-    incrementItemQuantity: function incrementItemQuantity(state, _ref5) {
-        var id = _ref5.id;
+
+
+    //Увиличение количества на 1
+    incrementItemQuantity: function incrementItemQuantity(state, _ref8) {
+        var id = _ref8.id;
 
         var cartItem = state.items.find(function (item) {
             return item.id === id;
         });
         cartItem.quantity++;
     },
-    setCartItems: function setCartItems(state, _ref6) {
-        var items = _ref6.items;
 
-        state.items = items;
+
+    //Удаление товара из корзины
+    deleteItem: function deleteItem(state, _ref9) {
+        var id = _ref9.id;
+
+        var cartItem = state.items.find(function (item) {
+            return item.id === id;
+        });
+        var key = state.items.indexOf(cartItem);
+        if (key >= 0) {
+            state.items.splice(key, 1);
+        }
     },
-    setCheckoutStatus: function setCheckoutStatus(state, status) {
-        state.checkoutStatus = status;
+
+
+    //Установка тового значения количества
+    setItemQuantity: function setItemQuantity(state, _ref10) {
+        var id = _ref10.id,
+            quantity = _ref10.quantity;
+
+        var cartItem = state.items.find(function (item) {
+            return item.id === id;
+        });
+        cartItem.quantity = quantity;
     }
 };
 
@@ -15375,21 +15391,120 @@ var mutations = {
 });
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = __webpack_require__(35);
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api_shop__ = __webpack_require__(34);
+
+
+var state = {
+  all: []
+
+  // getters
+};var getters = {};
+
+// actions
+var actions = {
+  //action на запуски "импорта"
+  getAllProducts: function getAllProducts(_ref) {
+    var commit = _ref.commit;
+
+    __WEBPACK_IMPORTED_MODULE_0__api_shop__["a" /* default */].getProducts(function (products) {
+      commit('setProducts', products);
+    });
+  }
+};
+
+// mutations
+var mutations = {
+  //Установка списка полученого внутри getAllProducts в state
+  setProducts: function setProducts(state, products) {
+    state.all = products;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  namespaced: true,
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+//Не уверен что она должна быть здесь, но пусть будет
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    getProducts: function getProducts(callback) {
+        var _this = this;
+
+        var products = {};
+        //Получаем структуру списка товаров и записываем ее в переменную
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("/names.json").then(function (response) {
+            products = response.data;
+            //Получаем остатки по товарам
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get("/data.json").then(function (response) {
+                _this.offers = response.data.Value.Goods;
+
+                var currencyValue = getRandomIntInclusive(20, 80);
+
+                //Перебираем остаки, дописываем цену и наличие в товары
+                //в категорию дописываем флаг того, что категория не пуста
+                _this.offers.forEach(function (offer) {
+                    var categoryId = offer.G;
+                    var productId = offer.T;
+                    var currentCategory = products[categoryId];
+                    var currentProduct = currentCategory.B[productId];
+                    if (currentProduct) {
+                        currentCategory.existsAvailableGoods = true;
+                        currentProduct.stockCount = offer.P;
+                        currentProduct.price = offer.C * currencyValue;
+                    }
+                });
+                //В колл-беке передан метод который записывает результат в state
+                callback(products);
+                //через 15с вызываем эту функцию повторно
+                setTimeout(function () {
+                    _this.getProducts(callback);
+                }, 15000);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }).catch(function (error) {
+            return console.log(error);
+        });
+    }
+});
 
 /***/ }),
 /* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(36);
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(8);
-var Axios = __webpack_require__(37);
+var bind = __webpack_require__(7);
+var Axios = __webpack_require__(38);
 var defaults = __webpack_require__(4);
 
 /**
@@ -15423,15 +15538,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(12);
-axios.CancelToken = __webpack_require__(50);
-axios.isCancel = __webpack_require__(11);
+axios.Cancel = __webpack_require__(11);
+axios.CancelToken = __webpack_require__(51);
+axios.isCancel = __webpack_require__(10);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(51);
+axios.spread = __webpack_require__(52);
 
 module.exports = axios;
 
@@ -15440,7 +15555,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 /*!
@@ -15457,7 +15572,7 @@ module.exports = function isBuffer (obj) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15465,8 +15580,8 @@ module.exports = function isBuffer (obj) {
 
 var defaults = __webpack_require__(4);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(45);
-var dispatchRequest = __webpack_require__(46);
+var InterceptorManager = __webpack_require__(46);
+var dispatchRequest = __webpack_require__(47);
 
 /**
  * Create a new instance of Axios
@@ -15543,7 +15658,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15562,13 +15677,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(10);
+var createError = __webpack_require__(9);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -15595,7 +15710,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15623,7 +15738,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15696,7 +15811,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15756,7 +15871,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15831,7 +15946,7 @@ module.exports = (
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15891,7 +16006,7 @@ module.exports = (
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15950,18 +16065,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(47);
-var isCancel = __webpack_require__(11);
+var transformData = __webpack_require__(48);
+var isCancel = __webpack_require__(10);
 var defaults = __webpack_require__(4);
-var isAbsoluteURL = __webpack_require__(48);
-var combineURLs = __webpack_require__(49);
+var isAbsoluteURL = __webpack_require__(49);
+var combineURLs = __webpack_require__(50);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -16043,7 +16158,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16070,7 +16185,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16091,7 +16206,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16112,13 +16227,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(12);
+var Cancel = __webpack_require__(11);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -16176,7 +16291,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16208,51 +16323,6 @@ module.exports = function spread(callback) {
   };
 };
 
-
-/***/ }),
-/* 52 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api_shop__ = __webpack_require__(7);
-
-
-// initial state
-var state = {
-  all: []
-
-  // getters
-};var getters = {};
-
-// actions
-var actions = {
-  getAllProducts: function getAllProducts(_ref) {
-    var commit = _ref.commit;
-
-    __WEBPACK_IMPORTED_MODULE_0__api_shop__["a" /* default */].getProducts(function (products) {
-      commit('setProducts', products);
-    });
-  }
-};
-
-// mutations
-var mutations = {
-  setProducts: function setProducts(state, products) {
-    state.all = products;
-  },
-  decrementProductInventory: function decrementProductInventory(state, productInfo) {
-    /*const product = state.all[productInfo.categoryId]['B'][productInfo.id];
-    product.stockCount--;*/
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  namespaced: true,
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
 
 /***/ }),
 /* 53 */

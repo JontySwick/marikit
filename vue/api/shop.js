@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+//Не уверен что она должна быть здесь, но пусть будет
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -9,16 +9,21 @@ function getRandomIntInclusive(min, max) {
 export default {
     getProducts(callback) {
         let products = {};
+        //Получаем структуру списка товаров и записываем ее в переменную
         axios
             .get("/names.json")
             .then((response) => {
                 products = response.data;
+                //Получаем остатки по товарам
                 axios
                     .get("/data.json")
                     .then((response) => {
-                        let currencyValue = getRandomIntInclusive(20, 80);
-                        console.log(currencyValue);
                         this.offers = response.data.Value.Goods;
+
+                        let currencyValue = getRandomIntInclusive(20, 80);
+
+                        //Перебираем остаки, дописываем цену и наличие в товары
+                        //в категорию дописываем флаг того, что категория не пуста
                         this.offers.forEach((offer) => {
                             let categoryId = offer.G;
                             let productId = offer.T;
@@ -30,8 +35,9 @@ export default {
                                 currentProduct.price = offer.C * currencyValue;
                             }
                         });
-
+                        //В колл-беке передан метод который записывает результат в state
                         callback(products);
+                        //через 15с вызываем эту функцию повторно
                         setTimeout(() => {
                             this.getProducts(callback);
                         }, 15000);
@@ -41,14 +47,5 @@ export default {
                     });
             })
             .catch(error => console.log(error));
-    },
-
-    /*buyProducts (products, cb, errorCb) {
-      setTimeout(() => {
-        // simulate random checkout failure.
-        (Math.random() > 0.5 || navigator.userAgent.indexOf('PhantomJS') > -1)
-          ? cb()
-          : errorCb()
-      }, 100)
-    }*/
+    }
 }

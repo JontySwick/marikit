@@ -1,32 +1,35 @@
 <template>
-  <div class="cart">
-    <h2>Your Cart</h2>
-    <p v-show="!products.length"><i>Please add some products to cart.</i></p>
-    <ul>
-      <li
-        v-for="product in products"
-        :key="product.id">
-        {{ product.title }} - {{ product.price | currency }} x {{ product.quantity }}
-      </li>
-    </ul>
-    <p>Total: {{ total | currency }}</p>
-    <p><button :disabled="!products.length" @click="checkout(products)">Checkout</button></p>
-    <p v-show="checkoutStatus">Checkout {{ checkoutStatus }}.</p>
-  </div>
+    <div class="cart">
+        <h2>Корзина</h2>
+        <p v-show="!products.length"><i>Корзина пуста</i></p>
+        <ul>
+            <li
+                    v-for="product in products"
+                    :key="product.id">
+                {{ product.title }} - {{ product.price | currency }} x <input type="number" v-model="product.quantity"
+                                                                              @input="updateQuantity({id: product.id, quantity: product.quantity})">
+                <button type="button" @click="removeProductFromCart({id: product.id})">Удалить</button>
+            </li>
+        </ul>
+        <p>Итого: {{ total | currency }}</p>
+    </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
-export default {
-  computed: {
-    ...mapState({
-      checkoutStatus: state => state.cart.checkoutStatus
-    }),
-    ...mapGetters('cart', {
-      products: 'cartProducts',
-      total: 'cartTotalPrice'
-    })
-  },
-}
+    export default {
+        computed: {
+            //с помощью геттеров модуля корзины записываем вычисляемые значения
+            ...mapGetters('cart', {
+                products: 'cartProducts',
+                total: 'cartTotalPrice'
+            })
+        },
+        //Получаем экшины из модуля корзины
+        methods: mapActions('cart', [
+            'updateQuantity',
+            'removeProductFromCart'
+        ])
+    }
 </script>

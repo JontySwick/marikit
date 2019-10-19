@@ -1,6 +1,5 @@
 import shop from '../../api/shop'
 
-// initial state
 const state = {
   all: []
 }
@@ -10,23 +9,20 @@ const getters = {}
 
 // actions
 const actions = {
+  //action на запуски "импорта"
   getAllProducts ({ commit }) {
     shop.getProducts(products => {
-      commit('setProducts', products)
-    })
+      commit('setProducts', products);
+    });
   }
 }
 
 // mutations
 const mutations = {
+  //Установка списка полученого внутри getAllProducts в state
   setProducts (state, products) {
-    state.all = products
+    state.all = products;
   },
-
-  decrementProductInventory (state, productInfo) {
-    /*const product = state.all[productInfo.categoryId]['B'][productInfo.id];
-    product.stockCount--;*/
-  }
 }
 
 export default {

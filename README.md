@@ -5,21 +5,21 @@
 DIRECTORY STRUCTURE
 -------------------
 
-        index.php/news                  news list
-        index.php/news/detail?id=152    detail new page
+    PHP Part
+        index.php/news                      Список новостей
+        index.php/news/detail?id=\d         Детальная карточка новости
 
-        assets/                         contains assets definition
-        commands/                       contains console commands (controllers)
-        config/                         contains application configurations
-        controllers/                    contains Web controller classes
-        mail/                           contains view files for e-mails
-        models/                         contains model classes
-        runtime/                        contains files generated during runtime
-        tests/                          contains various tests for the basic application
-        vendor/                         contains dependent 3rd-party packages
-        views/                          contains view files for the Web application
-        web/                            contains the entry script and Web resources
-
+    JS Part
+        vue/api/shop.js                     "Импорт" из файлов
+        vue/components/shop.js              Главный компонент прилодения
+        vue/components/shop.js              Компонент списка товаров
+        vue/components/ShoppingCart.vue     Компонент корзины
+        vue/store/modules/cart.js           Модуль для работы с состояниями корзины
+        vue/store/modules/products.js       Модуль для работы с состояниями списка товаров
+        vue/index.js                        Здесь собираем все модули воедино
+        vue/app.js                          Главный фаил приложения
+        vue/currency.js                     Фаил с фильтром форматирования цены, 
+                                            который был любезно выложен в репазитории Vuex
 PHP PART
 -------------------
 

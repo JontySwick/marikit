@@ -2,6 +2,7 @@
     <div class="products">
         <h1>Список товаров</h1>
         <ul>
+            <!--Перебираем наш список, показываем только те разделы в которых есть товары в наличие-->
             <li v-if="category.existsAvailableGoods" v-for="(category, categoryId) in products">
                 <div>{{category.G}}</div>
                 <ol>
@@ -31,7 +32,26 @@
         methods: mapActions('cart', [
             'addProductToCart'
         ]),
+        watch: {
+            //Следим за изменениями нашего списка
+            //при изменениях сравниваем цены товаров и записываем разницу в priceDiff
+            products: function (newValue, oldValue) {
+                Object.keys(newValue).forEach(function (categoryId) {
+                    if(!oldValue[categoryId]){
+                        return
+                    }
+                    Object.keys(newValue[categoryId]['B']).forEach(function (productId) {
+                        let newPrice = newValue[categoryId]['B'][productId]['price'];
+                        let oldPrice = oldValue[categoryId]['B'][productId]['price'];
+                        newValue[categoryId]['B'][productId]['priceDiff'] = newPrice - oldPrice;
+                    });
+                })
+            },
+            deep: true,
+            immediate: false,
+        },
         created() {
+            //При создание компонента вызываем из модуля функцию получения товаров
             this.$store.dispatch('products/getAllProducts')
         }
     }
