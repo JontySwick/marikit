@@ -48,8 +48,20 @@ $config = [
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
-            'enableStrictParsing' => true,
+            'enableStrictParsing' => false,
             'showScriptName' => false,
+            'rules' => [
+                /*'/' => 'site/index',
+                'products'  => 'site/index',
+                'products/add'  => 'site/index',
+                'products/<id:\d+>'  => 'site/index',
+
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'product',
+                    'prefix' => 'api', //api будет доступен по url, начинающимся с /api/products
+                ],*/
+            ],
         ],
     ],
     'params' => $params,
