@@ -8,7 +8,9 @@ DIRECTORY STRUCTURE
     PHP Part
         /news                               Список новостей
         /news/detail?id=\d                  Детальная карточка новости
-
+        commands                            Папка с консольными командами
+        components                          Собственные классы
+        controllers                         Папка с контроллером новостей
     JS Part
         /site/catalog                       Страница с выполненной задачей
         vue/api/shop.js                     "Импорт" из файлов
