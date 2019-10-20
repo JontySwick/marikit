@@ -4,6 +4,8 @@
 
 $this->title = 'My Yii Application';
 ?>
+<div id="app"></div>
+<?php $this->registerJsFile('/js/app.js'); ?>
 <div class="site-index">
 
     <div class="jumbotron">

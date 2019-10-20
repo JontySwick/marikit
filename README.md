@@ -1,233 +1,370 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Basic Project Template</h1>
-    <br>
-</p>
-
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
-
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
-
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
+<div align="center">
+    <h1 align="center">Тестовое задание Marikit Holdings LTD</h1>
+</div>
 
 DIRECTORY STRUCTURE
 -------------------
 
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
+    PHP Part
+        index.php/news                      Список новостей
+        index.php/news/detail?id=\d         Детальная карточка новости
+
+    JS Part
+        vue/api/shop.js                     "Импорт" из файлов
+        vue/components/shop.js              Главный компонент прилодения
+        vue/components/shop.js              Компонент списка товаров
+        vue/components/ShoppingCart.vue     Компонент корзины
+        vue/store/modules/cart.js           Модуль для работы с состояниями корзины
+        vue/store/modules/products.js       Модуль для работы с состояниями списка товаров
+        vue/index.js                        Здесь собираем все модули воедино
+        vue/app.js                          Главный фаил приложения
+        vue/currency.js                     Фаил с фильтром форматирования цены, 
+                                            который был любезно выложен в репазитории Vuex
+PHP PART
+-------------------
+
+### Task
+Спарсить (программно) первые 15 новостей с rbk.ru (блок, откуда брать новости показан на скриншоте)
+и вставить в базу данных (составить структуру самому) или в файл.
+
+Вывести все новости, сократив текст до 200 символов в качестве описания,
+со ссылкой на полную новость с кнопкой подробнее.
+
+На полной новости выводить картинку если есть в новости.
+
+JS PART
+-------------------
+
+### Task
+
+
+Получить данные из файла data.json и вывести их на страницу как это показано на рис."пример.png".
+
+Показанные на рисунке параметры находятся в узле Goods.
+
+    "C" - цена в долларах(USD) - вывести в рублях(курс выбрать произвольно),
+    "G" - id группы,
+    "T" - id товара,
+    "P" - сколько единиц товара осталось (параметр, который указан в скобках в названии).
+
+Сопоставления id групп и товаров с их названиями находятся в файле names.json.
+
+После вывода данных навесить обработчики для добавления выбранного товара в корзину и удаления из нее. Пример корзины показан в файле "Корзина.png".
+Сделать рассчет общей суммы товаров и вывести отдельным полем.
+Корзина находится на одной и той же странице вместе со списком товаров.
+
+(*)
+Вывести данные используя привязку к представлению и возможностью последующего изменения (two-way binding). Можно использовать фреймворки. 
+Сделать обновление цены товара в зависимости от курса валюты.
+С интервалом в 15 секунд читать исходный файл data.json и одновременно менять курс доллара (вручную) на значение от 20 до 80, выполняя обновление данных в модели (с изменением в представлении).
+Если цена увеличилось в большую сторону - подсветить ячейку красным, если в меньшую - зеленым.
+
+Дополнительная информация: 
+Дизайну, показанному в примерах, следовать не обязательно. 
+Прокомментировать основные действия.
+Интересные решения приветствуются.
+
+### names.json
+
+    {
+        "1": {
+            "G": "Книги",
+            "B": {
+                "1": {
+                    "N": "Алгоритмы. Построение и анализ. Т. Кормен, Ч. Лейзерсон, Р. Ривест, К. Штайн.",
+                    "T": 1
+                },
+                "2": {
+                    "N": "Совершенный код. Стив Макконнелл.",
+                    "T": 1
+                },
+                "3": {
+                    "N": "JavaScript. Подробное руководство. Дэвид Флэнаган.",
+                    "T": 1
+                }
+            }
+        },
+        "2": {
+            "G": "Еда",
+            "C": 2,
+            "B": {
+                "7": {
+                    "N": "Овсяные пирожные с шоколадной прослойкой",
+                    "T": 3
+                },
+                "8": {
+                    "N": "Суп с пекинской капустой",
+                    "T": 3
+                },
+                "85": {
+                    "N": "Вишня в коньяке",
+                    "T": 3
+                },
+                "86": {
+                    "N": "Постный фаршированный перец",
+                    "T": 3
+                },
+                "109": {
+                    "N": "Салат Подсолнух",
+                    "T": ""
+                },
+                "110": {
+                    "N": "Форель «Эрланген»",
+                    "T": ""
+                },
+                "111": {
+                    "N": "Салат с морепродуктами",
+                    "T": 3
+                },
+                "112": {
+                    "N": "Тёртый пирог",
+                    "T": 3
+                },
+                "115": {
+                    "N": "Свинина, маринованная в красном вине, с кориандром",
+                    "T": ""
+                },
+                "116": {
+                    "N": "Салат с черносливом и ветчиной",
+                    "T": ""
+                },
+                "125": {
+                    "N": "Болгарский перец и цуккини на гриле",
+                    "T": 3
+                },
+                "126": {
+                    "N": "Салат «Букет нарциссов»",
+                    "T": 3
+                },
+                "127": {
+                    "N": "Салат из морепродуктов, с огурцами, рукколой и оливками",
+                    "T": 3
+                }
+            }
+        },
+        "5": {
+            "G": "Спорт",
+            "C": 2,
+            "B": {
+                "184": {
+                    "N": "Беговая дорожка",
+                    "T": 1
+                },
+                "185": {
+                    "N": "Гантели съемные",
+                    "T": 1
+                },
+                "186": {
+                    "N": "Ружьё охотничье",
+                    "T": 1
+                },
+                "187": {
+                    "N": "Велотренажер",
+                    "T": 1
+                }
+            }
+        },
+        "8": {
+            "G": "Сантехника",
+            "C": 3,
+            "B": {
+                "4": {
+                    "N": "Акриловая ванна Alpen Mars ",
+                    "T": 1
+                },
+                "5": {
+                    "N": "Смеситель Sturm Classica",
+                    "T": 1
+                },
+                "6": {
+                    "N": "Тумба с раковиной Tiffany World ",
+                    "T": 1
+                }
+            }
+        },
+        "10": {
+            "G": "Запчасти для машин",
+            "C": 3,
+            "B": {
+                "191": {
+                    "N": "Амортизатор задний CX-5 ",
+                    "T": 3
+                },
+                "192": {
+                    "N": "Пружина амортизатора ",
+                    "T": 3
+                },
+                "193": {
+                    "N": "Корпус воздушного фильтра ",
+                    "T": 3
+                },
+                "194": {
+                    "N": "Ремень приводной",
+                    "T": 3
+                },
+                "195": {
+                    "N": "Диффузор радиатора",
+                    "T": 1
+                },
+                "196": {
+                    "N": "Фильтр АКПП",
+                    "T": 3
+                }
+            }
+        },
+        "15": {
+            "G": "Сувениры",
+            "C": 2,
+            "B": {
+                "11": {
+                    "N": "Набор для рисования Пастель",
+                    "T": 3
+                },
+                "12": {
+                    "N": "Брелок-рулетка",
+                    "T": 3
+                },
+                "63": {
+                    "N": "Брелок-открывалка",
+                    "T": 3
+                },
+                "64": {
+                    "N": "Ручка-стилус шариковая",
+                    "T": 3
+                },
+                "146": {
+                    "N": "Браслет",
+                    "T": 3
+                },
+                "147": {
+                    "N": "Чехол для очков",
+                    "T": 3
+                },
+                "148": {
+                    "N": "Сумка для выставок",
+                    "T": 3
+                }
+            }
+        }
+    }
+
+### data.json
+
+    {
+      "Error": "",
+      "Id": 0,
+      "Success": true,
+      "Value": {
+        "Goods": [
+          {
+            "B": false,
+            "C": 158,
+            "CV": null,
+            "G": 1,
+            "P": 1,
+            "Pl": null,
+            "T": 1
+          },
+          {
+            "B": false,
+            "C": 197,
+            "CV": null,
+            "G": 1,
+            "P": 99,
+            "Pl": null,
+            "T": 2
+          },
+          {
+            "B": false,
+            "C": 18,
+            "CV": null,
+            "G": 1,
+            "P": 31,
+            "Pl": null,
+            "T": 3
+          },
+          {
+            "B": false,
+            "C": 2.14,
+            "CV": null,
+            "G": 2,
+            "P": 15,
+            "Pl": null,
+            "T": 8
+          },
+          {
+            "B": false,
+            "C": 1.52,
+            "CV": null,
+            "G": 2,
+            "P": 76,
+            "Pl": null,
+            "T": 86
+          },
+          {
+            "B": false,
+            "C": 5.5,
+            "CV": null,
+            "G": 2,
+            "P": 100,
+            "Pl": null,
+            "T": 126
+          },
+          {
+            "B": false,
+            "C": 2.71,
+            "CV": null,
+            "G": 5,
+            "P": 51,
+            "Pl": null,
+            "T": 184
+          },
+          {
+            "B": false,
+            "C": 3.95,
+            "CV": null,
+            "G": 5,
+            "P": 2,
+            "Pl": null,
+            "T": 185
+          },
+          {
+            "B": false,
+            "C": 1.22,
+            "CV": null,
+            "G": 10,
+            "P": 51,
+            "Pl": null,
+            "T": 194
+          },
+          {
+            "B": false,
+            "C": 1.18,
+            "CV": null,
+            "G": 15,
+            "P": 55,
+            "Pl": null,
+            "T": 12
+          },
+          {
+            "B": false,
+            "C": 1.55,
+            "CV": null,
+            "G": 15,
+            "P": 64,
+            "Pl": null,
+            "T": 63
+          },
+          {
+            "B": false,
+            "C": 1.55,
+            "CV": null,
+            "G": 15,
+            "P": 77,
+            "Pl": null,
+            "T": 64
+          }
+        ]
+      }
+    }
 
-
-
-REQUIREMENTS
-------------
-
-The minimum requirement by this project template that your Web server supports PHP 5.4.0.
-
-
-INSTALLATION
-------------
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-composer create-project --prefer-dist yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-### Install from an Archive File
-
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-Set cookie validation key in `config/web.php` file to some random secret string:
-
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
-],
-```
-
-You can then access the application through the following URL:
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-### Install with Docker
-
-Update your vendor packages
-
-    docker-compose run --rm php composer update --prefer-dist
-    
-Run the installation triggers (creating cookie validation code)
-
-    docker-compose run --rm php composer install    
-    
-Start the container
-
-    docker-compose up -d
-    
-You can then access the application through the following URL:
-
-    http://127.0.0.1:8000
-
-**NOTES:** 
-- Minimum required Docker engine version `17.04` for development (see [Performance tuning for volume mounts](https://docs.docker.com/docker-for-mac/osxfs-caching/))
-- The default configuration uses a host-volume in your home directory `.docker-composer` for composer caches
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
-```
-
-**NOTES:**
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
-
-
-TESTING
--------
-
-Tests are located in `tests` directory. They are developed with [Codeception PHP Testing Framework](http://codeception.com/).
-By default there are 3 test suites:
-
-- `unit`
-- `functional`
-- `acceptance`
-
-Tests can be executed by running
-
-```
-vendor/bin/codecept run
-```
-
-The command above will execute unit and functional tests. Unit tests are testing the system components, while functional
-tests are for testing user interaction. Acceptance tests are disabled by default as they require additional setup since
-they perform testing in real browser. 
-
-
-### Running  acceptance tests
-
-To execute acceptance tests do the following:  
-
-1. Rename `tests/acceptance.suite.yml.example` to `tests/acceptance.suite.yml` to enable suite configuration
-
-2. Replace `codeception/base` package in `composer.json` with `codeception/codeception` to install full featured
-   version of Codeception
-
-3. Update dependencies with Composer 
-
-    ```
-    composer update  
-    ```
-
-4. Download [Selenium Server](http://www.seleniumhq.org/download/) and launch it:
-
-    ```
-    java -jar ~/selenium-server-standalone-x.xx.x.jar
-    ```
-
-    In case of using Selenium Server 3.0 with Firefox browser since v48 or Google Chrome since v53 you must download [GeckoDriver](https://github.com/mozilla/geckodriver/releases) or [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) and launch Selenium with it:
-
-    ```
-    # for Firefox
-    java -jar -Dwebdriver.gecko.driver=~/geckodriver ~/selenium-server-standalone-3.xx.x.jar
-    
-    # for Google Chrome
-    java -jar -Dwebdriver.chrome.driver=~/chromedriver ~/selenium-server-standalone-3.xx.x.jar
-    ``` 
-    
-    As an alternative way you can use already configured Docker container with older versions of Selenium and Firefox:
-    
-    ```
-    docker run --net=host selenium/standalone-firefox:2.53.0
-    ```
-
-5. (Optional) Create `yii2_basic_tests` database and update it by applying migrations if you have them.
-
-   ```
-   tests/bin/yii migrate
-   ```
-
-   The database configuration can be found at `config/test_db.php`.
-
-
-6. Start web server:
-
-    ```
-    tests/bin/yii serve
-    ```
-
-7. Now you can run all available tests
-
-   ```
-   # run all available tests
-   vendor/bin/codecept run
-
-   # run acceptance tests
-   vendor/bin/codecept run acceptance
-
-   # run only unit and functional tests
-   vendor/bin/codecept run unit,functional
-   ```
-
-### Code coverage support
-
-By default, code coverage is disabled in `codeception.yml` configuration file, you should uncomment needed rows to be able
-to collect code coverage. You can run your tests and collect coverage with the following command:
-
-```
-#collect coverage for all tests
-vendor/bin/codecept run -- --coverage-html --coverage-xml
-
-#collect coverage only for unit tests
-vendor/bin/codecept run unit -- --coverage-html --coverage-xml
-
-#collect coverage for unit and functional tests
-vendor/bin/codecept run functional,unit -- --coverage-html --coverage-xml
-```
-
-You can see code coverage output under the `tests/_output` directory.
