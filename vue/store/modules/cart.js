@@ -44,7 +44,7 @@ const actions = {
     //ф-ия для установки нового значенияим кол-ва в корзине
     updateQuantity({state, commit, rootState}, {id, quantity}) {
         quantity = parseInt(quantity);
-        if (!quantity) {
+        if (!quantity || quantity < 0) {
             return;
         }
         const cartItem = state.items.find(item => item.id === id);
