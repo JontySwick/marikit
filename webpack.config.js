@@ -5,8 +5,8 @@ module.exports = {
   entry: './vue/app.js',
   output: {
     path: path.resolve(__dirname, './web/js'),
-    publicPath: '/web/',
-    filename: 'app.js'
+    publicPath: '/web/js/',
+    filename: 'app.js',
   },
   module: {
     rules: [
@@ -51,6 +51,7 @@ module.exports = {
     overlay: true,
     host: 'marikit.localhost',
     port: 9000,
+    contentBase: path.join(__dirname, 'web')
   },
   performance: {
     hints: false
